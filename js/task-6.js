@@ -14,7 +14,7 @@ createBtn.addEventListener('click', createBoxes);
 destroyBtn.addEventListener('click', destroyBoxes);
 
 function createBoxes() {
-  const amount = input.valueAsNumber;
+  const amount = Number(input.value);
   if (amount < 1 || amount > 100 || isNaN(amount)) {
     return;
   }
@@ -22,17 +22,18 @@ function createBoxes() {
   boxes.innerHTML = '';
   let size = 30;
 
-  const array = [];
+  const fragment = document.createDocumentFragment();
 
   for (let i = 0; i < amount; i++) {
     const box = document.createElement('div');
     box.style.width = `${size}px`;
     box.style.height = `${size}px`;
     box.style.backgroundColor = getRandomHexColor();
-    array.push(box);
+    fragment.appendChild(box);
     size += 10;
   }
-  boxes.appendChild(...array);
+
+  boxes.append(fragment);
   input.value = '';
 }
 
